@@ -4,6 +4,7 @@ from sumy.parsers.plaintext import PlaintextParser
 from sumy.nlp.tokenizers import Tokenizer
 from sumy.summarizers.lex_rank import LexRankSummarizer
 from io import BytesIO
+import mysql.connector
 
 def read_pptx(file):
     pptx_reader = Presentation(file)
@@ -13,6 +14,24 @@ def read_pptx(file):
             if hasattr(shape, "text"):
                 text += shape.text
     return text
+
+def save_summary_to_db(uploaded_file, summary):
+    # MySQLデータベースに接続
+    conn = mysql.connector.connect(
+        host="www.ryhintl.com",
+        user="smairuser",
+        password="smairuser",
+        database="smair",
+        port=36000
+    )
+    cursor = conn.cursor()
+
+    # 要約結果をデータベースに挿入
+    cursor.execute("INSERT INTO parsed_summary (uploaded_file, summary_text) VALUES (%s, %s)", (uploaded_file.name, summary))
+    conn.commit()
+
+    cursor.close()
+    conn.close()
 
 # Streamlitアプリの設定
 st.title('PPTXパーサー')
@@ -42,5 +61,8 @@ if uploaded_file is not None:
         else:
             break
 
+    # 要約結果をデータベースに保存
+    save_summary_to_db(uploaded_file, summary)
+
     # フォントサイズを12pxに設定して表示
-    st.markdown(f"<div style='font-size: 12px;'>{summary}</div>", unsafe_allow_html=True)
+    st.markdown(f"<div style='font-size: 12px
