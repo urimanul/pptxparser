@@ -27,7 +27,7 @@ def save_summary_to_db(uploaded_file, summary):
     cursor = conn.cursor()
 
     # 要約結果をデータベースに挿入
-    cursor.execute("INSERT INTO summaries (uploaded_file, summary_text) VALUES (%s, %s)", (uploaded_file.name, summary))
+    cursor.execute("INSERT INTO parsed_summary (uploaded_file, summary_text) VALUES (%s, %s)", (uploaded_file.name, summary))
     conn.commit()
 
     cursor.close()
