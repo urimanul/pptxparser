@@ -4,4 +4,3 @@ ginza
 ja-ginza
 streamlit
 python-pptx
-mysql-connector
