@@ -65,4 +65,4 @@ if uploaded_file is not None:
     save_summary_to_db(uploaded_file, summary)
 
     # フォントサイズを12pxに設定して表示
-    st.markdown(f"<div style='font-size: 12px
+    st.markdown(f"<div style='font-size: 12px;'>{summary}</div>", unsafe_allow_html=True)
