@@ -32,7 +32,7 @@ if uploaded_file is not None:
     # 要約を実行
     parser = PlaintextParser.from_string(text, Tokenizer('japanese'))
     summarizer = LexRankSummarizer()
-    res = summarizer(document=parser.document, sentences_count=1000)  # 大きな値を設定しておく
+    res = summarizer(document=parser.document, sentences_count=char_count)  # 大きな値を設定しておく
 
     # 指定された文字数に要約を調整
     summary = ""
