@@ -1,0 +1,6 @@
+sumy
+tinysegmenter
+ginza
+ja-ginza
+streamlit
+python-pptx
